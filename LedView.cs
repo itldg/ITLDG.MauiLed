@@ -43,7 +43,7 @@ namespace ITLDG.MauiLed
             ledView.Invalidate();
         }
 
-        LedDrawable ledDrawable = null;
+        readonly LedDrawable ledDrawable = null;
         public LedView()
         {
             ledDrawable = new LedDrawable();
@@ -64,7 +64,7 @@ namespace ITLDG.MauiLed
         /// <summary>
         /// 熄灭时LED颜色
         /// </summary>
-        public Color NightColor = new Color(0, 0, 0, 0.2f);
+        public Color NightColor = new(0, 0, 0, 0.2f);
 
         /// <summary>
         /// 存放绘画数据 每个Bit位,代表一个Led灯
@@ -73,7 +73,7 @@ namespace ITLDG.MauiLed
         /// <summary>
         /// 所有路径
         /// </summary>
-        PathF[] ledPaths = new PathF[8];
+        readonly PathF[] ledPaths = new PathF[8];
         /// <summary>
         /// 初始化路径
         /// </summary>
@@ -84,7 +84,7 @@ namespace ITLDG.MauiLed
             float ll = lw * 3; //线长
             if (lw % 2 > 0)
             {
-                lw = lw - 1; //偶数
+                lw--; //偶数
             }
             float lw1 = lw - 1; //奇数  线宽
             float p = 0;
@@ -103,14 +103,14 @@ namespace ITLDG.MauiLed
             float y = 0; //Y偏移
 
 
-            List<PointF> a = new List<PointF>();
-            List<PointF> b = new List<PointF>();
-            List<PointF> c = new List<PointF>();
-            List<PointF> d = new List<PointF>();
-            List<PointF> e = new List<PointF>();
-            List<PointF> f = new List<PointF>();
-            List<PointF> g = new List<PointF>();
-            List<PointF> h = new List<PointF>();
+            List<PointF> a = new();
+            List<PointF> b = new();
+            List<PointF> c = new();
+            List<PointF> d = new();
+            List<PointF> e = new();
+            List<PointF> f = new();
+            List<PointF> g = new();
+            List<PointF> h = new();
 
             a.Add(new PointF(x + x1, y + x));
             a.Add(new PointF(a[0].X + p, y));
@@ -175,9 +175,9 @@ namespace ITLDG.MauiLed
             ledPaths[6] = GetPathF(g);
             ledPaths[7] = GetPathF(h);
         }
-        PathF GetPathF(List<PointF> points)
+        static PathF GetPathF(List<PointF> points)
         {
-            PathF path = new PathF();
+            PathF path = new();
             path.MoveTo(points[0]);
             for (int i = 1; i < points.Count; i++)
             {

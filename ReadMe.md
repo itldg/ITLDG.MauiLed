@@ -4,7 +4,7 @@
 
 ## 效果预览
 
-![效果预览](./imgs/preview.png)
+![效果预览](https://raw.githubusercontent.com/itldg/ITLDG.MauiLed/main/imgs/preview.png)
 
 ## 可用属性
 
@@ -30,4 +30,4 @@ xmlns:itldg="clr-namespace:ITLDG.MauiLed;assembly=ITLDG.MauiLed"
 
 `1 表示点亮` `0 表示熄灭` 下图表示 Bit 位与七段码的对应关系
 
-![七段码](./imgs/led.png)
+![七段码](https://raw.githubusercontent.com/itldg/ITLDG.MauiLed/main/imgs/led.png)
