@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITLDG.MauiLed", "ITLDG.MauiLed.csproj", "{88FCC7AC-D500-41F3-BC56-8C682D59001A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{88FCC7AC-D500-41F3-BC56-8C682D59001A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88FCC7AC-D500-41F3-BC56-8C682D59001A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88FCC7AC-D500-41F3-BC56-8C682D59001A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88FCC7AC-D500-41F3-BC56-8C682D59001A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BEE3CF17-0A51-4953-99CE-87AD6A1899D4}
+	EndGlobalSection
+EndGlobal
