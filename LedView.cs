@@ -14,6 +14,15 @@ namespace ITLDG.MauiLed
             get => (byte)GetValue(DataProperty);
             set => SetValue(DataProperty, value);
         }
+        /// <summary>
+        /// 数据反转,反转后Data中 0是点亮,1是熄灭
+        /// </summary>
+        public static readonly BindableProperty InversionProperty = BindableProperty.Create(nameof(Inversion), typeof(bool), typeof(LedDrawable), false, propertyChanged: OnMyParameterChanged);
+        public bool Inversion
+        {
+            get => (bool)GetValue(InversionProperty);
+            set => SetValue(InversionProperty, value);
+        }
 
         ///// <summary>
         ///// 点亮时LED颜色
@@ -24,6 +33,7 @@ namespace ITLDG.MauiLed
             get => (Color)GetValue(LightColorProperty);
             set => SetValue(LightColorProperty, value);
         }
+
         ///// <summary>
         ///// 熄灭时LED颜色
         ///// </summary>
@@ -37,7 +47,7 @@ namespace ITLDG.MauiLed
         private static void OnMyParameterChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var ledView = bindable as LedView;
-            ledView.ledDrawable.Data = ledView.Data;
+            ledView.ledDrawable.Data = ledView.Inversion ? (byte)(ledView.Data ^ 0xFF) : ledView.Data;
             ledView.ledDrawable.NightColor = ledView.NightColor;
             ledView.ledDrawable.LightColor = ledView.LightColor;
             ledView.Invalidate();
@@ -200,6 +210,94 @@ namespace ITLDG.MauiLed
                 canvas.FillPath(ledPaths[i]);
             }
 
+        }
+    }
+
+    public static class LedData
+    {
+        //获取LED的内容
+        static Dictionary<byte, char> dicLed = new Dictionary<byte, char>(){
+            {0x00,' '},
+            {0x06,'1'},
+            {0x07,'7'},
+            {0x09,'='},
+            {0x0E,'j'},
+            {0x1C,'u'},
+            {0x1E,'J'},
+            {0x30,'I'},
+            {0x38,'L'},
+            {0x39,'C'},
+            {0x3D,'G'},
+            {0x3F,'0'},
+            {0x3E,'U'},
+            {0x40,'-'},
+            {0x4F,'3'},
+            {0x50,'r'},
+            {0x54,'n'},
+            {0x58,'c'},
+            {0x5B,'2'},
+            {0x5C,'o'},
+            {0x5E,'d'},
+            {0x5F,'a'},
+            {0x66,'4'},
+            {0x67,'q'},
+            {0x6D,'5'},
+            {0x6E,'Y'},
+            {0x6F,'9'},
+            {0x71,'F'},
+            {0x73,'P'},
+            {0x74,'h'},
+            {0x76,'H'},
+            {0x77,'A'},
+            {0x79,'E'},
+            {0x7C,'b'},
+            {0x7D,'6'},
+            {0x7F,'8'},
+        };
+        /// <summary>
+        /// 获取展示字符
+        /// </summary>
+        /// <param name="data">数码管数据</param>
+        /// <param name="inversion">数据是否反转</param>
+        /// <returns>获取成功返回字符,否则返回问号(?)</returns>
+        public static char GetText(byte data, bool inversion = false)
+        {
+            if (inversion) data = (byte)(data ^ 0xFF);
+            byte temp = (byte)(data & 0x7f);
+            if (dicLed.ContainsKey(temp))
+            {
+                return dicLed[temp];
+            }
+            return '?';
+        }
+        /// <summary>
+        /// 是否有小数点
+        /// </summary>
+        /// <param name="data">数码管数据</param>
+        /// <param name="inversion">数据是否反转</param>
+        /// <returns></returns>
+        public static bool HasDecimalPoint(byte data, bool inversion = false)
+        {
+            if (inversion) data = (byte)(data ^ 0xFF);
+            return (data & 0x80) > 0;
+        }
+
+        /// <summary>
+        /// 获取字符对应的七段码数据
+        /// </summary>
+        /// <param name="str">要显示的内容</param>
+        /// <param name="inversion">数据是否反转</param>
+        /// <returns></returns>
+        public static byte GetData(char str, bool inversion = false)
+        {
+            foreach (var item in dicLed)
+            {
+                if (item.Value == str)
+                {
+                    return (byte)(inversion ? item.Key ^ 0xFF : item.Key);
+                }
+            }
+            return (byte)(inversion ? 0xFF : 0x00);
         }
     }
 }
